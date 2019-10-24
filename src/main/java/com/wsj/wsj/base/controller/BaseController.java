@@ -19,7 +19,6 @@ public class BaseController {
     @RequestMapping(value = {"/","/index"},method = RequestMethod.GET)
     public ModelAndView toIndex(){
         ModelAndView mView = new ModelAndView("index");
-        System.out.println(response);
         return mView;
     }
 }

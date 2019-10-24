@@ -1,12 +1,9 @@
 package com.wsj.wsj.tools.ide.service.ide;
 
 import com.wsj.wsj.base.util.FileUtil;
-import com.wsj.wsj.base.util.ProjectInfoUtil;
 import com.wsj.wsj.tools.ide.entity.JavaEntity;
 import com.wsj.wsj.tools.ide.util.CmdExec;
-import com.wsj.wsj.tools.ide.util.commands.cmdEnum.CmdEnum;
 import com.wsj.wsj.tools.ide.util.stream.StreamEnum;
-import com.wsj.wsj.tools.ide.util.commands.Command;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
