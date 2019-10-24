@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        .code-div {
+            width: 50%;
+            height: 300px;
+        }
+        .code-text {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<body>
+    <div class="code-div" id="codeDiv">
+        <textarea id="codeText" class="code-text" v-model="code"></textarea>
+        <button v-on:click="codeExec">点击执行</button>
+    </div>
+
+    <br><br>
+
+    <div class="code-div" id="resultDiv">
+        <textarea class="code-text" v-model="result"></textarea>
+    </div>
+
+    <script>
+        var codeDiv = new Vue({
+            el : '#codeDiv',
+            data : {
+                code : "示例代码"
+            },
+            methods : {
+                initCode : function() {
+                   axios.get('/ide/getSample').then(function (value) {
+                            codeDiv.code = value.data;
+                    }).catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+                },
+                codeExec : function () {
+                    $.ajax({
+                        url : '/ide/codeExec',
+                        type : "POST",
+                        dataType : "json",
+                        data : {
+                            projectName : "HelloWorld",
+                            fileName : "HelloWorld.java",
+                            fileCode : codeDiv.code
+                        },
+                        success : function (result) {
+                            resultDiv.result = result.success;
+                        }
+
+                    });
+                }
+            }
+        });
+
+        var resultDiv = new Vue({
+            el : '#resultDiv',
+            data : {
+                result : "运行结果"
+            }
+        });
+
+        codeDiv.initCode();
+    </script>
+</body>
+</html>

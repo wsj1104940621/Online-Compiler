@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模板系统</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+    <span id="formatTemplate">{{formatTemplate}}</span>
+    <button id="getBtn" v-on:click="getFormat">{{text}}</button>
+
+    <script>
+        var formatTemplate = new Vue({
+            el : '#formatTemplate',
+            data : {
+                formatTemplate : "asdas"
+            }
+        });
+
+        var getBtn = new Vue({
+            el : '#getBtn',
+            data : {
+                text : '获取'
+            },
+            methods:{
+              getFormat : function () {
+                  $.ajax({
+                      url:"/getFormat",
+                      type:"POST",
+                      success:function (result) {
+                          $("#formatTemplate").text(result);
+                      }
+                  })
+              }
+            }
+        })
+    </script>
+</body>
+</html>
